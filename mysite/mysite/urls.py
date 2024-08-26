@@ -38,15 +38,13 @@ schema_view = get_schema_view(
    permission_classes=(permissions.AllowAny,),
 )
 
-urlpatterns = [
+
+urlpatterns =i18n_patterns(
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('admin/', admin.site.urls),
     path('', include('kino.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
-urlpatterns = [
-    *i18n_patterns(*urlpatterns, prefix_default_language=False),
-]

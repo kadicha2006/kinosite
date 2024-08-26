@@ -1,5 +1,21 @@
 from rest_framework import serializers
 from .models import *
+from django.contrib.auth.models import User
+
+class RegisterSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password')
+
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            username=validated_data['username'],
+            email=validated_data['email'],
+            password=validated_data['password']
+        )
+        return user
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -54,7 +70,7 @@ class RatingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Rating
-        fields = ['id', 'user', 'movie', 'stars']
+        fields = '__all__'
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -72,7 +88,7 @@ class CartItemSerializer(serializers.ModelSerializer):
     product_id = serializers. PrimaryKeyRelatedField(queryset=Movie. objects.all(), write_only=True, source='product')
 
     class Meta:
-        model = CarItem
+        model = CartItem
         fields = ['id', 'product', 'product_id',]
 
 

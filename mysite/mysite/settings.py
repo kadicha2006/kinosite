@@ -123,7 +123,7 @@ TIME_ZONE = 'Asia/Bishkek'
 
 USE_I18N = True
 
-# USE_L10N = True
+USE_L10N = True
 
 USE_TZ = True
 
@@ -132,6 +132,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 # Default primary key field type
@@ -157,10 +160,12 @@ MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 
 MODELTRANSLATION_LANGUAGES = ('en', 'ru', 'ky')
 
+ACCAUNT_AUTHENTICATTIN_METHOD='email'
+ACCAUNT_EMAIL_REQUIRED=True
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=50),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-    "ROTATE_REFRESH_TOKENS": False,
-    "BLACKLIST_AFTER_ROTATION": False,
-    "UPDATE_LAST_LOGIN": False,
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
 }
